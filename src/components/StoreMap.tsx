@@ -196,7 +196,7 @@ export default function StoreMap({
             // Descriptive labels for screen readers
             const blockName = block.name || (block.id === 'wc' ? 'Toilettes' : block.isSpecial ? block.label : '');
             const blockDesc = blockName 
-              ? `Rayon ${block.label} : ${blockName}. ${block.step ? `Étape ${block.step} du parcours.` : ''}`
+              ? `${block.label} : ${blockName}. ${block.step ? `Étape ${block.step} du parcours.` : ''}`
               : `Zone ${block.label}`;
 
             return (

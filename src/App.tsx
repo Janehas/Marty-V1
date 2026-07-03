@@ -1038,7 +1038,7 @@ export default function App() {
                             <div className="mt-0.5 pt-1 border-t border-gray-100 flex justify-between items-center text-[9px]">
                               <span className="text-gray-400 font-semibold">Localisation :</span>
                               <span className="font-extrabold text-[#FF5C00] bg-orange-50 px-1.5 py-0.2 rounded-md font-mono border border-orange-100/50">
-                                Rayon {getAisleNumber(currentExpectedProduct.name)}
+                                {getAisleNumber(currentExpectedProduct.name)}
                               </span>
                             </div>
                           </div>
@@ -1069,7 +1069,7 @@ export default function App() {
                     {noListMode ? (
                       <span className="text-[#FF5C00] font-bold">📍 Mode Scan Libre actif · Scannez vos articles au fur et à mesure sans itinéraire</span>
                     ) : (
-                      `📍 GPS connecté · Proche du rayon ${currentExpectedProduct.name}`
+                      `📍 GPS connecté · Proche de : ${currentExpectedProduct.name}`
                     )}
                   </div>
 
@@ -1119,7 +1119,7 @@ export default function App() {
                           <div className="flex items-center gap-1.5 px-2 py-1 text-[10px] font-extrabold text-[#FF5C00] uppercase tracking-wider bg-orange-50/45 rounded-lg border border-orange-100/30">
                             <span className="text-sm filter drop-shadow-xs leading-none">{categoryEmoji}</span>
                             <span className="font-sans leading-none">
-                              {categoryName} {getAisleNumber(categoryName) ? `(Rayon ${getAisleNumber(categoryName)})` : ''}
+                              {categoryName} {getAisleNumber(categoryName) ? `(${getAisleNumber(categoryName)})` : ''}
                             </span>
                             <span className="ml-auto text-[9px] bg-orange-100/50 text-[#FF5C00] px-1.5 py-0.2 rounded-full font-black">
                               {items.filter(i => i.isChecked).length} / {items.length}

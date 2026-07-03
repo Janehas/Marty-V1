@@ -77,7 +77,7 @@ export default function ShoppingListPanel({
             const num = getAisleNumber(option);
             return (
               <option key={option} value={option}>
-                {option} {num ? `(Rayon ${num})` : ''}
+                {option} {num ? `(${num})` : ''}
               </option>
             );
           })}
@@ -118,7 +118,7 @@ export default function ShoppingListPanel({
               tabIndex={0}
               role="checkbox"
               aria-checked={item.isChecked}
-              aria-label={`${item.name}, Rayon ${item.aisleName}`}
+              aria-label={`${item.name}, ${item.aisleName}`}
               className={`flex items-center justify-between p-2.5 border rounded-xl cursor-pointer transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5C00] ${
                 item.isChecked 
                   ? 'bg-[#F0FAF5]/40 border-[#1A8C4E]/20 text-[#666666]' 
@@ -143,7 +143,7 @@ export default function ShoppingListPanel({
                     {item.name}
                   </span>
                   <span className="text-[10px] text-[#666666] block leading-none mt-0.5">
-                    Rayon : {item.aisleName} {getAisleNumber(item.aisleName) ? `(Rayon ${getAisleNumber(item.aisleName)})` : ''}
+                    {item.aisleName} {getAisleNumber(item.aisleName) ? `(${getAisleNumber(item.aisleName)})` : ''}
                   </span>
                 </div>
               </div>
