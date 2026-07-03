@@ -1162,9 +1162,23 @@ export default function App() {
                                         setCartItems(prev => [...prev, newCartItem]);
                                         triggerScannedAlert(`Bip ! ${item.name} ajouté au panier.`);
                                       }
+
+                                      // Progress the GPS / avatar step to the next product
+                                      if (matchedStop) {
+                                        if (matchedStop.step === 5) {
+                                          setAvatarStep(6);
+                                        } else {
+                                          setAvatarStep(matchedStop.step + 1);
+                                        }
+                                      }
                                     } else {
                                       // Remove from cart
                                       setCartItems(prev => prev.filter(c => c.name !== item.name && c.name !== `${item.name} (Promo 2ème)`));
+
+                                      // Move GPS / avatar step back to this product's step
+                                      if (matchedStop) {
+                                        setAvatarStep(matchedStop.step);
+                                      }
                                     }
 
                                     if (item.name === 'Mozzarella di Bufala' && nextChecked) {
