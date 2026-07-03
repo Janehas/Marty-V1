@@ -849,11 +849,12 @@ export default function App() {
             <div className="w-full h-full flex overflow-hidden">
               {isGeneratingPath ? (
                 <div className="flex-1 h-full flex flex-col items-center justify-center bg-gray-50/50 p-8">
-                  {/* Beautiful icon/spinner area */}
-                  <div className="relative mb-6">
-                    <div className="w-20 h-20 rounded-full border-4 border-amber-500/10 border-t-[#FF5C00] animate-spin" style={{ animationDuration: '1.5s' }} />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Sparkles className="w-8 h-8 text-[#FF5C00] animate-pulse" />
+                  {/* Animated shopping cart moving & jumping left to right */}
+                  <div className="w-64 h-16 relative overflow-hidden flex items-end mb-6 border-b border-dashed border-gray-300 pb-2 select-none">
+                    <div className="animate-cart-roll w-full absolute left-0 bottom-2 flex justify-center">
+                      <div className="animate-cart-bounce text-[#FF5C00]">
+                        <ShoppingCart className="w-10 h-10 stroke-[2.5]" />
+                      </div>
                     </div>
                   </div>
                   
