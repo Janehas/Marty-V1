@@ -1,0 +1,6 @@
+{
+  "name": "Marty Smart Cart",
+  "description": "Marty, le chariot connecté intelligent pour des courses simplifiées.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

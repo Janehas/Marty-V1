@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --base-font-size: 14px;
+  --high-contrast: 0;
+  --simplified-mode: 0;
+  --large-buttons: 0;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --animate-scan: scan 2s infinite ease-in-out;
+  --animate-cart-roll: cart-roll 3s infinite linear;
+  --animate-cart-bounce: cart-bounce 0.6s infinite ease-in-out;
+
+  @keyframes scan {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(180px); }
+  }
+
+  @keyframes cart-roll {
+    0% { transform: translateX(-150%); }
+    100% { transform: translateX(150%); }
+  }
+
+  @keyframes cart-bounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-3px) rotate(4deg); }
+  }
+}

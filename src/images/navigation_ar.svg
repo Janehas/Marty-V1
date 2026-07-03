@@ -1,0 +1,261 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <!-- Definitions for filters and gradients -->
+  <defs>
+    <!-- Soft glow filter for AR elements -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Intense neon glow -->
+    <filter id="intense-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="blur1" />
+      <feGaussianBlur stdDeviation="4" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="blur2" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Linear gradient for the floor path -->
+    <linearGradient id="path-gradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FF3E00" stop-opacity="1" />
+      <stop offset="60%" stop-color="#FF7C00" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#FFA300" stop-opacity="0.3" />
+    </linearGradient>
+
+    <!-- Gradient for floor chevrons -->
+    <linearGradient id="chevron-gradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FF2A00" />
+      <stop offset="100%" stop-color="#FF9E00" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background supermarket image with brightness and contrast adjustments -->
+  <image 
+    href="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200" 
+    x="0" 
+    y="0" 
+    width="1000" 
+    height="500" 
+    preserveAspectRatio="xMidYMid slice"
+    style="filter: brightness(0.45) contrast(1.15) saturate(0.9);"
+  />
+
+  <!-- Subtle grid overlay to simulate digital AR scanning of the space -->
+  <rect x="0" y="0" width="1000" height="500" fill="none" stroke="#F43900" stroke-width="1" opacity="0.04" />
+
+  <!-- Supermarket structural pillar (simulated left-center) -->
+  <rect x="380" y="0" width="70" height="350" fill="#242830" opacity="0.85" />
+  <line x1="380" y1="0" x2="380" y2="350" stroke="#374151" stroke-width="1.5" />
+  <line x1="450" y1="0" x2="450" y2="350" stroke="#374151" stroke-width="1.5" />
+
+  <!-- Fire Hose Reel on the pillar (matching the red circular device in the photo) -->
+  <g transform="translate(415, 115)">
+    <!-- Red outer circle bracket -->
+    <circle cx="0" cy="0" r="32" fill="#BE123C" stroke="#E11D48" stroke-width="2" />
+    <!-- Inner metallic hub -->
+    <circle cx="0" cy="0" r="24" fill="#E11D48" />
+    <!-- Coiled hose simulation -->
+    <circle cx="0" cy="0" r="18" fill="none" stroke="#9F1239" stroke-width="3" stroke-dasharray="4 2" />
+    <circle cx="0" cy="0" r="12" fill="none" stroke="#FDA4AF" stroke-width="2" />
+    <circle cx="0" cy="0" r="6" fill="#4C0519" />
+    <!-- Red nozzle pipe hanging down -->
+    <path d="M 12,24 L 14,48 L 8,48 Z" fill="#BE123C" stroke="#9F1239" stroke-width="1" />
+  </g>
+
+  <!-- AR Floor Guidance Path & Glowing Chevrons (Forward then Turn Left) -->
+  <!-- Base orange guidance line on the floor with depth perspective -->
+  <g opacity="0.85">
+    <!-- Main perspective line on the floor -->
+    <path 
+      d="M 570,500 L 570,340 L 515,310 L 485,302" 
+      fill="none" 
+      stroke="url(#path-gradient)" 
+      stroke-width="12" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      filter="url(#glow)"
+    />
+
+    <!-- Glowing floor chevrons pointing the direction, getting smaller with distance -->
+    <!-- Chevron 1 (Closest, bottom center) -->
+    <path 
+      d="M 505,475 L 570,425 L 635,475" 
+      fill="none" 
+      stroke="url(#chevron-gradient)" 
+      stroke-width="18" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      filter="url(#intense-glow)"
+    />
+    <path 
+      d="M 505,475 L 570,425 L 635,475" 
+      fill="none" 
+      stroke="#FFF0E0" 
+      stroke-width="6" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+
+    <!-- Chevron 2 (Middle) -->
+    <path 
+      d="M 525,400 L 570,365 L 615,400" 
+      fill="none" 
+      stroke="url(#chevron-gradient)" 
+      stroke-width="14" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      filter="url(#glow)"
+    />
+    <path 
+      d="M 525,400 L 570,365 L 615,400" 
+      fill="none" 
+      stroke="#FFF0E0" 
+      stroke-width="4" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+
+    <!-- Chevron 3 (Turning left, further away) -->
+    <path 
+      d="M 565,340 L 530,320 L 555,295" 
+      fill="none" 
+      stroke="url(#chevron-gradient)" 
+      stroke-width="10" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      filter="url(#glow)"
+    />
+    
+    <!-- Chevron 4 (Farthest turn) -->
+    <path 
+      d="M 525,312 L 495,302 L 510,285" 
+      fill="none" 
+      stroke="url(#chevron-gradient)" 
+      stroke-width="7" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      opacity="0.7"
+    />
+  </g>
+
+  <!-- AR Float Tag: "Rayon Biscuits/Gâteaux" over the left aisle -->
+  <g transform="translate(560, 160)" filter="url(#glow)">
+    <!-- Speech bubble pointer -->
+    <path d="M 0,0 L -12,-20 L 12,-20 Z" fill="#F43900" />
+    <!-- Rounded rect container -->
+    <rect x="-95" y="-56" width="190" height="36" rx="10" fill="#F43900" stroke="#FF8F6B" stroke-width="1.5" />
+    <!-- Text inside tag -->
+    <text 
+      x="0" 
+      y="-33" 
+      fill="#FFFFFF" 
+      font-family="system-ui, -apple-system, sans-serif" 
+      font-size="11.5" 
+      font-weight="900" 
+      text-anchor="middle"
+      letter-spacing="0.5"
+    >Rayon Biscuits/Gâteaux</text>
+  </g>
+
+  <!-- Left Side Navigation Info Panel (Floating UI) -->
+  <g transform="translate(45, 45)">
+    <!-- Huge vibrant orange direction arrow (Bending Left) -->
+    <g filter="url(#intense-glow)">
+      <!-- Shadow/Glow backing -->
+      <path 
+        d="M 70,85 L 70,55 C 70,35 50,15 25,15 L -10,15" 
+        fill="none" 
+        stroke="#F43900" 
+        stroke-width="16" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+      />
+      <!-- Arrow head -->
+      <path 
+        d="M 10,35 L -15,15 L 10,-5" 
+        fill="none" 
+        stroke="#F43900" 
+        stroke-width="16" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+      />
+    </g>
+    <!-- Sharp inner high-contrast white arrow core -->
+    <path 
+      d="M 70,85 L 70,55 C 70,35 50,15 25,15 L -10,15" 
+      fill="none" 
+      stroke="#FF9E66" 
+      stroke-width="6" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+    />
+    <path 
+      d="M 10,35 L -15,15 L 10,-5" 
+      fill="none" 
+      stroke="#FF9E66" 
+      stroke-width="6" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+    />
+
+    <!-- Text labels next to the big arrow -->
+    <g transform="translate(100, 15)">
+      <!-- Itinerary header -->
+      <text 
+        x="0" 
+        y="5" 
+        fill="#FFFFFF" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-size="22" 
+        font-weight="500" 
+        opacity="0.95"
+        letter-spacing="-0.5"
+      >Itinéraire : Vers Épicerie Sucrée</text>
+
+      <!-- Distance and turn direction -->
+      <text 
+        x="0" 
+        y="35" 
+        fill="#FF7C3B" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-size="20" 
+        font-weight="900"
+        filter="url(#glow)"
+      >À 10 mètres :</text>
+      <text 
+        x="0" 
+        y="65" 
+        fill="#FF7C3B" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-size="20" 
+        font-weight="900"
+        filter="url(#glow)"
+      >Tournez à gauche</text>
+    </g>
+  </g>
+
+  <!-- Right Side Time Overlay (2 min) -->
+  <g transform="translate(950, 45)" text-anchor="end">
+    <text 
+      x="0" 
+      y="22" 
+      fill="#FF7C3B" 
+      font-family="system-ui, -apple-system, sans-serif" 
+      font-size="22" 
+      font-weight="900"
+      filter="url(#glow)"
+    >2 min</text>
+  </g>
+
+  <!-- Subtle corner tech guides for a clean AR viewfinder look -->
+  <path d="M 20,40 L 20,20 L 40,20" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.4" />
+  <path d="M 980,40 L 980,20 L 960,20" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.4" />
+  <path d="M 20,460 L 20,480 L 40,480" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.4" />
+  <path d="M 980,460 L 980,480 L 960,480" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.4" />
+</svg>
