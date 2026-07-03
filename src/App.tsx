@@ -850,7 +850,7 @@ export default function App() {
               {isGeneratingPath ? (
                 <div className="flex-1 h-full flex flex-col items-center justify-center bg-gray-50/50 p-8">
                   {/* Animated shopping cart moving & jumping left to right */}
-                  <div className="w-64 h-16 relative overflow-hidden flex items-end mb-6 border-b border-dashed border-gray-300 pb-2 select-none">
+                  <div className="w-full max-w-4xl px-8 h-16 relative overflow-hidden flex items-end mb-6 border-b border-dashed border-gray-300 pb-2 select-none">
                     <div className="animate-cart-roll w-full absolute left-0 bottom-2 flex justify-center">
                       <div className="animate-cart-bounce text-[#FF5C00]">
                         <ShoppingCart className="w-10 h-10 stroke-[2.5]" />
