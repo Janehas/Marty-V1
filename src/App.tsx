@@ -1791,7 +1791,7 @@ export default function App() {
 
                 {/* Bottom instructions & simple automatic detection notice */}
                 <div className="flex flex-col items-center gap-1 mt-1">
-                  <p className="text-[11px] text-gray-500 font-medium italic animate-pulse">
+                  <p className="text-[11px] text-[#FF5C00] font-medium italic animate-pulse">
                     Détection automatique en cours...
                   </p>
                 </div>
