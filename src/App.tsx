@@ -218,6 +218,10 @@ export default function App() {
   const [emailReceipt, setEmailReceipt] = useState('');
   const [emailChecked, setEmailChecked] = useState(false);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+  const [showTpePopup, setShowTpePopup] = useState(false);
+  
+  const tpeTimeoutRef = useRef<any>(null);
+  const successTimeoutRef = useRef<any>(null);
 
   // Simulated scanner status
   const [isScanningLaserActive, setIsScanningLaserActive] = useState(true);
@@ -475,9 +479,17 @@ export default function App() {
 
   // Checkout Pay action
   const handleConfirmCheckoutPayment = () => {
+    setShowTpePopup(true);
+  };
+
+  // Called when payment is successfully made on TPE terminal (manual validation)
+  const handleTpePaymentCompleted = () => {
+    setShowTpePopup(false);
     setCheckoutSuccess(true);
-    setTimeout(() => {
-      // Complete reset
+
+    // Complete reset after showing success screen for 4.5 seconds
+    if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
+    successTimeoutRef.current = setTimeout(() => {
       setAppStep('connect');
       setCartItems([]);
       setShoppingList([]);
@@ -487,7 +499,7 @@ export default function App() {
       setCheckoutSuccess(false);
       setEmailReceipt('');
       setEmailChecked(false);
-    }, 3000);
+    }, 4500);
   };
 
   return (
@@ -1476,6 +1488,60 @@ export default function App() {
               className="absolute inset-0 bg-[#0F172A]/85 backdrop-blur-xs flex items-center justify-center z-50 p-6"
             >
               <div className="bg-white rounded-3xl border border-gray-100 shadow-2xl p-5 max-w-4xl w-full h-[320px] flex gap-5 relative animate-fade-in text-left">
+                
+                {/* TPE Terminal Prompt Overlay */}
+                {showTpePopup && (
+                  <div 
+                    onClick={handleTpePaymentCompleted}
+                    className="absolute inset-0 bg-[#0F172A]/95 backdrop-blur-md rounded-3xl z-55 flex flex-col items-center justify-center p-6 text-center animate-fade-in cursor-pointer"
+                    title="Cliquez pour valider le paiement"
+                  >
+                    {/* Header badge */}
+                    <div className="bg-orange-500/15 text-[#FF5C00] border border-[#FF5C00]/25 rounded-full px-4 py-1 text-xs font-black uppercase tracking-widest mb-3">
+                      Paiement en cours
+                    </div>
+
+                    {/* Instruction text */}
+                    <h3 className="text-lg font-black text-white max-w-[600px] leading-relaxed">
+                      Approchez-vous du terminal de paiement pour régler vos courses en toute autonomie.
+                    </h3>
+
+                    {/* Animated arrow pointing right & TPE Graphic */}
+                    <div className="flex items-center gap-6 mt-4">
+                      {/* Middle: Moving/sliding arrows pointing right */}
+                      <div className="flex items-center gap-1.5 text-[#FF5C00]">
+                        <span className="text-lg font-bold animate-slide-arrow-1">▶</span>
+                        <span className="text-xl font-bold animate-slide-arrow-2">▶</span>
+                        <span className="text-2xl font-bold animate-slide-arrow-3">▶</span>
+                      </div>
+
+                      {/* Right: Graphic representation of physical TPE */}
+                      <div className="flex items-center gap-2 bg-slate-800 border border-slate-700 px-3.5 py-1.5 rounded-xl shadow-lg relative overflow-hidden">
+                        {/* Green indicator light flashing */}
+                        <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                        <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500" />
+                        
+                        {/* TPE SVG */}
+                        <svg className="w-7 h-7 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="5" y="2" width="14" height="20" rx="3" className="fill-slate-900" />
+                          <rect x="8" y="5" width="8" height="5" rx="1" className="stroke-[1.5]" />
+                          <circle cx="9" cy="14" r="0.8" className="fill-slate-400 stroke-none" />
+                          <circle cx="12" cy="14" r="0.8" className="fill-slate-400 stroke-none" />
+                          <circle cx="15" cy="14" r="0.8" className="fill-slate-400 stroke-none" />
+                          <circle cx="9" cy="17" r="0.8" className="fill-slate-400 stroke-none" />
+                          <circle cx="12" cy="17" r="0.8" className="fill-slate-400 stroke-none" />
+                          <circle cx="15" cy="17" r="0.8" className="fill-slate-400 stroke-none" />
+                          <path d="M7 11h10" className="stroke-[1.5]" />
+                        </svg>
+                        
+                        <div className="text-left leading-none">
+                          <span className="text-xs font-black text-white block tracking-widest uppercase">TPE</span>
+                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mt-0.5 font-mono">À DROITE</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 
                 {checkoutSuccess ? (
                   /* Checkout Payment Success Screen inside modal */

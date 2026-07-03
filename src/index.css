@@ -92,3 +92,34 @@
     stroke-dashoffset: 10;
   }
 }
+
+/* TPE Prompt screen animations */
+@keyframes arrow-fade-1 {
+  0%, 100% { opacity: 0.15; transform: scale(0.9) translateX(-2px); }
+  33% { opacity: 1; transform: scale(1.1) translateX(0px); }
+}
+@keyframes arrow-fade-2 {
+  0%, 100% { opacity: 0.15; transform: scale(0.9) translateX(-2px); }
+  66% { opacity: 1; transform: scale(1.1) translateX(0px); }
+}
+@keyframes arrow-fade-3 {
+  0%, 100% { opacity: 0.15; transform: scale(0.9) translateX(-2px); }
+  99% { opacity: 1; transform: scale(1.1) translateX(0px); }
+}
+@keyframes progress-fill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.animate-slide-arrow-1 {
+  animation: arrow-fade-1 1.5s infinite ease-in-out;
+}
+.animate-slide-arrow-2 {
+  animation: arrow-fade-2 1.5s infinite ease-in-out;
+}
+.animate-slide-arrow-3 {
+  animation: arrow-fade-3 1.5s infinite ease-in-out;
+}
+.animate-tpe-progress {
+  animation: progress-fill linear forwards;
+}
