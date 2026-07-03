@@ -34,6 +34,8 @@ import { CartItem, ShoppingListItem } from './types';
 import { CATALOG_PRODUCTS, STORE_PROMOTIONS, STORE_AISLES } from './data';
 // @ts-expect-error - PNG file import
 import mapMartyUrl from '../assets/Images/Map marty.png';
+// @ts-expect-error - PNG file import
+import listeDeCourseUrl from '../assets/Images/liste de course.png';
 // Components
 import StoreMap from './components/StoreMap';
 import MartyLogo from './components/MartyLogo';
@@ -1768,7 +1770,7 @@ export default function App() {
                         </div>
                       ) : (
                         <img 
-                          src="/assets/Images/liste de course.png" 
+                          src={listeDeCourseUrl} 
                           alt="Liste de courses" 
                           onError={() => setUseFallbackList(true)}
                           className="w-full h-full object-cover select-none" 
