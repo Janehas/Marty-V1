@@ -28,7 +28,7 @@ export default function StoreMap({
     { id: 'blue-bar', label: 'ZONE FRAIS / PROMO', color: '#82B4E0', type: 'rect', x: 250, y: 15, w: 450, h: 40, isSpecial: true, textColor: '#2C5E8A' },
     
     // Left blocks
-    { id: '1', label: '1', color: '#CF7C8C', type: 'rect', x: 15, y: 170, w: 210, h: 160, step: 1, name: 'Fruits & Légumes', emoji: '🧅', rx: 6, ry: 6 },
+    { id: '1', label: '1', color: '#CF7C8C', type: 'rect', x: 15, y: 170, w: 210, h: 160, step: 1, name: 'Fruits & Légumes', emoji: '🍎', rx: 6, ry: 6 },
     { id: '2', label: '2', color: '#E5B648', type: 'rect', x: 45, y: 100, w: 180, h: 65, rx: 6, ry: 6 },
     { id: '3', label: '3', color: '#CD5241', type: 'rect', x: 180, y: 45, w: 45, h: 50, step: 5, name: 'Épicerie salée', emoji: '🥫', rx: 4, ry: 4 },
 
@@ -105,7 +105,7 @@ export default function StoreMap({
 
   const getBlockBorderColor = (block: any, isHighlighted: boolean, state: string) => {
     if (isHighlighted || state === 'current') {
-      return '#F43900'; // Vibrant active orange
+      return '#FF5C00'; // Vibrant active orange
     }
     if (state === 'done') {
       return '#1A8C4E'; // Modern completed green
@@ -143,7 +143,7 @@ export default function StoreMap({
               strokeWidth = '2.5';
               strokeDash = 'none';
             } else if (isActive) {
-              strokeColor = '#F43900';
+              strokeColor = '#FF5C00';
               strokeWidth = '4.5';
               strokeDash = 'none';
             }
@@ -202,7 +202,7 @@ export default function StoreMap({
             return (
               <g 
                 key={block.id} 
-                className="cursor-pointer transition-all hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F43900]"
+                className="cursor-pointer transition-all hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5C00]"
                 onClick={() => onCellClick?.(block.id)}
                 tabIndex={0}
                 role="button"
@@ -292,7 +292,7 @@ export default function StoreMap({
                   <g className="pointer-events-none">
                     <rect x="25" y="180" width="145" height="18" rx="4" fill="rgba(255, 255, 255, 0.85)" stroke="rgba(0,0,0,0.05)" strokeWidth="0.5" />
                     <text x="97" y="192" fill="#7E22CE" fontSize="8" fontWeight="black" textAnchor="middle" fontFamily="sans-serif">
-                      🧅 Fruits & Légumes
+                      🍎 Fruits & Légumes
                     </text>
                   </g>
                 )}
@@ -321,7 +321,7 @@ export default function StoreMap({
             if (isCompleted) {
               circleBg = '#1A8C4E';
             } else if (isActive) {
-              circleBg = '#F43900';
+              circleBg = '#FF5C00';
               borderStroke = '#FFFFFF';
             }
 
@@ -329,7 +329,7 @@ export default function StoreMap({
               <g key={`stop-node-${step}`} transform={`translate(${coords.x}, ${coords.y})`}>
                 {/* Glow pulse ring for current active node */}
                 {isActive && (
-                  <circle r="18" fill="none" stroke="#F43900" strokeWidth="2.5" opacity="0.45" className="animate-ping" style={{ animationDuration: '2.5s' }} />
+                  <circle r="18" fill="none" stroke="#FF5C00" strokeWidth="2.5" opacity="0.45" className="animate-ping" style={{ animationDuration: '2.5s' }} />
                 )}
                 
                 {/* Central Circle */}
@@ -443,7 +443,7 @@ export default function StoreMap({
               <g transform={`translate(${activeCoords.x}, ${activeCoords.y - 13})`} className="animate-bounce">
                 <path 
                   d="M 0,-15 C -4,-15 -7,-12 -7,-8 C -7,-3 0,5 0,5 C 0,5 7,-3 7,-8 C 7,-12 4,-15 0,-15 Z" 
-                  fill="#F43900" 
+                  fill="#FF5C00" 
                   stroke="white" 
                   strokeWidth="1.2" 
                 />

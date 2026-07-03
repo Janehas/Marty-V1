@@ -36,7 +36,7 @@ export default function SearchPanel({ onSelectProduct, onAddItemToCart }: Search
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Rechercher un produit... (ex: Mozzarella, Viande, Lasagnes, Oignons...)"
-            className="w-full pl-10 pr-4 py-2.5 bg-[#F9F9F9] border border-gray-200 rounded-xl text-sm font-medium text-[#1A1A1A] placeholder-gray-400 focus:outline-none focus:border-[#F43900] focus:ring-1 focus:ring-[#F43900] focus-visible:ring-2 focus-visible:ring-[#F43900]"
+            className="w-full pl-10 pr-4 py-2.5 bg-[#F9F9F9] border border-gray-200 rounded-xl text-sm font-medium text-[#1A1A1A] placeholder-gray-400 focus:outline-none focus:border-[#FF5C00] focus:ring-1 focus:ring-[#FF5C00] focus-visible:ring-2 focus-visible:ring-[#FF5C00]"
           />
         </div>
 
@@ -53,10 +53,10 @@ export default function SearchPanel({ onSelectProduct, onAddItemToCart }: Search
               role="tab"
               aria-selected={selectedCategory === cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-full text-[11.5px] font-semibold whitespace-nowrap transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F43900] ${
+              className={`px-3 py-1.5 rounded-full text-[11.5px] font-semibold whitespace-nowrap transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5C00] ${
                 selectedCategory === cat
-                  ? 'bg-[#F43900] text-white'
-                  : 'bg-gray-100 text-[#666666] hover:bg-[#FFF0E0] hover:text-[#F43900]'
+                  ? 'bg-[#FF5C00] text-white'
+                  : 'bg-gray-100 text-[#666666] hover:bg-[#FFF0E0] hover:text-[#FF5C00]'
               }`}
             >
               {cat}
@@ -88,7 +88,7 @@ export default function SearchPanel({ onSelectProduct, onAddItemToCart }: Search
                 }}
                 className={`flex items-center justify-between p-2.5 bg-white border rounded-xl transition-all duration-150 cursor-pointer ${
                   isSelected 
-                    ? 'border-[#F43900] bg-[#FFF5F0]' 
+                    ? 'border-[#FF5C00] bg-[#FFF5F0]' 
                     : 'border-gray-200 hover:border-gray-300 hover:bg-[#FFF0E0]/20'
                 }`}
               >
@@ -137,7 +137,7 @@ export default function SearchPanel({ onSelectProduct, onAddItemToCart }: Search
                         setActiveItem(product);
                         onSelectProduct(product.aisleId, product);
                       }}
-                      className="w-8 h-8 rounded-lg flex items-center justify-center border border-gray-200 text-gray-500 hover:text-[#F43900] hover:bg-[#FFF5F0] transition-colors cursor-pointer"
+                      className="w-8 h-8 rounded-lg flex items-center justify-center border border-gray-200 text-gray-500 hover:text-[#FF5C00] hover:bg-[#FFF5F0] transition-colors cursor-pointer"
                       title="Localiser dans le magasin"
                     >
                       <MapPin className="w-4 h-4" />
@@ -149,7 +149,7 @@ export default function SearchPanel({ onSelectProduct, onAddItemToCart }: Search
                         e.stopPropagation();
                         onAddItemToCart(product);
                       }}
-                      className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#F43900] text-white hover:bg-[#D43200] transition-colors cursor-pointer"
+                      className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#FF5C00] text-white hover:bg-[#D43200] transition-colors cursor-pointer"
                       title="Ajouter au panier"
                     >
                       <Plus className="w-4.5 h-4.5 stroke-[2.5]" />

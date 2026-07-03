@@ -20,7 +20,7 @@ export default function Splash({ onStart }: SplashProps) {
       tabIndex={0}
       role="button"
       aria-label="Écran d'accueil de Marty. Approchez votre téléphone ou carte de fidélité de l'écran pour commencer. Cliquez n'importe où sur l'écran pour simuler cette action sans contact."
-      className="w-full h-full bg-white flex flex-col justify-between p-8 relative overflow-hidden cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-[#F43900] select-none"
+      className="w-full h-full bg-white flex flex-col justify-between p-8 relative overflow-hidden cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FF5C00] select-none"
     >
       {/* Background visual accents */}
       <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-[#FFF5F0] rounded-l-[180px] -mr-16 flex items-center justify-center pointer-events-none">

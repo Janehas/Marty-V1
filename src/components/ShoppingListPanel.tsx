@@ -63,7 +63,7 @@ export default function ShoppingListPanel({
           value={newItemName}
           onChange={(e) => setNewItemName(e.target.value)}
           placeholder="Ajouter un article à acheter (ex: Lait, Beurre...)"
-          className="flex-1 bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs font-medium text-[#1A1A1A] focus:outline-none focus:border-[#F43900] focus-visible:ring-2 focus-visible:ring-[#F43900]"
+          className="flex-1 bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs font-medium text-[#1A1A1A] focus:outline-none focus:border-[#FF5C00] focus-visible:ring-2 focus-visible:ring-[#FF5C00]"
         />
         
         <label htmlFor="list-item-aisle-select" className="sr-only">Rayon de l'article</label>
@@ -71,7 +71,7 @@ export default function ShoppingListPanel({
           id="list-item-aisle-select"
           value={newItemAisle}
           onChange={(e) => setNewItemAisle(e.target.value)}
-          className="bg-white border border-gray-200 rounded-lg px-2 py-1 text-xs font-semibold text-[#666666] focus:outline-none focus:border-[#F43900] focus-visible:ring-2 focus-visible:ring-[#F43900]"
+          className="bg-white border border-gray-200 rounded-lg px-2 py-1 text-xs font-semibold text-[#666666] focus:outline-none focus:border-[#FF5C00] focus-visible:ring-2 focus-visible:ring-[#FF5C00]"
         >
           {aisleOptions.map((option) => {
             const num = getAisleNumber(option);
@@ -84,7 +84,7 @@ export default function ShoppingListPanel({
         </select>
         <button
           type="submit"
-          className="bg-[#F43900] hover:bg-[#D43200] text-white p-1.5 rounded-lg flex items-center justify-center transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-[#F43900]"
+          className="bg-[#FF5C00] hover:bg-[#D43200] text-white p-1.5 rounded-lg flex items-center justify-center transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-[#FF5C00]"
           title="Ajouter à la liste"
           aria-label="Ajouter à la liste"
         >
@@ -119,7 +119,7 @@ export default function ShoppingListPanel({
               role="checkbox"
               aria-checked={item.isChecked}
               aria-label={`${item.name}, Rayon ${item.aisleName}`}
-              className={`flex items-center justify-between p-2.5 border rounded-xl cursor-pointer transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F43900] ${
+              className={`flex items-center justify-between p-2.5 border rounded-xl cursor-pointer transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5C00] ${
                 item.isChecked 
                   ? 'bg-[#F0FAF5]/40 border-[#1A8C4E]/20 text-[#666666]' 
                   : 'bg-white border-gray-200 text-[#1A1A1A] hover:bg-gray-50'
@@ -155,7 +155,7 @@ export default function ShoppingListPanel({
                   e.stopPropagation();
                   onRemoveItem(item.id);
                 }}
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#F43900] hover:bg-[#FFF5F0] transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-[#F43900]"
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-[#FF5C00] hover:bg-[#FFF5F0] transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-[#FF5C00]"
                 title={`Supprimer ${item.name}`}
                 aria-label={`Supprimer ${item.name} de la liste`}
               >

@@ -47,7 +47,7 @@
   />
 
   <!-- Subtle grid overlay to simulate digital AR scanning of the space -->
-  <rect x="0" y="0" width="1000" height="500" fill="none" stroke="#F43900" stroke-width="1" opacity="0.04" />
+  <rect x="0" y="0" width="1000" height="500" fill="none" stroke="#FF5C00" stroke-width="1" opacity="0.04" />
 
   <!-- Supermarket structural pillar (simulated left-center) -->
   <rect x="380" y="0" width="70" height="350" fill="#242830" opacity="0.85" />
@@ -147,9 +147,9 @@
   <!-- AR Float Tag: "Rayon Biscuits/Gâteaux" over the left aisle -->
   <g transform="translate(560, 160)" filter="url(#glow)">
     <!-- Speech bubble pointer -->
-    <path d="M 0,0 L -12,-20 L 12,-20 Z" fill="#F43900" />
+    <path d="M 0,0 L -12,-20 L 12,-20 Z" fill="#FF5C00" />
     <!-- Rounded rect container -->
-    <rect x="-95" y="-56" width="190" height="36" rx="10" fill="#F43900" stroke="#FF8F6B" stroke-width="1.5" />
+    <rect x="-95" y="-56" width="190" height="36" rx="10" fill="#FF5C00" stroke="#FF8F6B" stroke-width="1.5" />
     <!-- Text inside tag -->
     <text 
       x="0" 
@@ -171,7 +171,7 @@
       <path 
         d="M 70,85 L 70,55 C 70,35 50,15 25,15 L -10,15" 
         fill="none" 
-        stroke="#F43900" 
+        stroke="#FF5C00" 
         stroke-width="16" 
         stroke-linecap="round" 
         stroke-linejoin="round" 
@@ -180,7 +180,7 @@
       <path 
         d="M 10,35 L -15,15 L 10,-5" 
         fill="none" 
-        stroke="#F43900" 
+        stroke="#FF5C00" 
         stroke-width="16" 
         stroke-linecap="round" 
         stroke-linejoin="round" 

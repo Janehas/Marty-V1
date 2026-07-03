@@ -71,9 +71,9 @@ export default function RouteSummary({ currentStop, onSelectStop }: RouteSummary
             textStyle = "text-[#1A8C4E] font-medium";
             statusIndicator = "✓";
           } else if (isCurrent) {
-            rowStyle += " bg-[#FFF5F0] border-l-[3px] border-l-[#F43900] -ml-4 pl-[13px] pr-4"; // Left border 3px #F43900, highlighted row
-            badgeStyle = "bg-[#F43900] text-white font-bold border-none";
-            textStyle = "text-[#F43900] font-semibold";
+            rowStyle += " bg-[#FFF5F0] border-l-[3px] border-l-[#FF5C00] -ml-4 pl-[13px] pr-4"; // Left border 3px #FF5C00, highlighted row
+            badgeStyle = "bg-[#FF5C00] text-white font-bold border-none";
+            textStyle = "text-[#FF5C00] font-semibold";
             statusIndicator = "→";
           } else {
             rowStyle += " bg-white opacity-70";
@@ -113,7 +113,7 @@ export default function RouteSummary({ currentStop, onSelectStop }: RouteSummary
                   </span>
                 )}
                 {statusIndicator && (
-                  <span className={`text-sm font-bold w-3 text-center ${isDone ? 'text-[#1A8C4E]' : 'text-[#F43900]'}`}>
+                  <span className={`text-sm font-bold w-3 text-center ${isDone ? 'text-[#1A8C4E]' : 'text-[#FF5C00]'}`}>
                     {statusIndicator}
                   </span>
                 )}
@@ -127,11 +127,11 @@ export default function RouteSummary({ currentStop, onSelectStop }: RouteSummary
       <div className="pt-2 border-t border-gray-100 shrink-0">
         <div className="flex justify-between items-center text-[12px] text-[#666666] mb-1.5">
           <span>{displayFoundText}</span>
-          <span className="font-bold text-[#F43900]">{Math.round(progressPercent)}%</span>
+          <span className="font-bold text-[#FF5C00]">{Math.round(progressPercent)}%</span>
         </div>
         <div className="w-full h-2 bg-[#EEEEEE] rounded-full overflow-hidden">
           <div 
-            className="h-full bg-[#F43900] rounded-full transition-all duration-300 ease-out"
+            className="h-full bg-[#FF5C00] rounded-full transition-all duration-300 ease-out"
             style={{ width: `${progressPercent}%` }}
           />
         </div>

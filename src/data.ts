@@ -15,7 +15,7 @@ export const STORE_AISLES: Aisle[] = [
   { id: 'boissons', name: 'Boissons / Eaux', emoji: '🧃', row: 1, col: 3 },
 
   // Row 3 (near entrance) - row index 2
-  { id: 'fruits_legumes', name: 'Fruits & Légumes', emoji: '🧅', row: 2, col: 0, routeStop: 1 },
+  { id: 'fruits_legumes', name: 'Fruits & Légumes', emoji: '🍎', row: 2, col: 0, routeStop: 1 },
   { id: 'boulangerie', name: 'Boulangerie / Viennoiserie', emoji: '🥖', row: 2, col: 1 },
   { id: 'hygiene', name: 'Hygiène / Beauté', emoji: '🧴', row: 2, col: 2 },
   { id: 'entretien', name: 'Entretien / Nettoyage', emoji: '🧹', row: 2, col: 3 },
@@ -27,7 +27,7 @@ export const ROUTE_STOPS: RouteStop[] = [
     stopNumber: 1,
     aisleId: 'fruits_legumes',
     name: 'Fruits & Légumes',
-    emoji: '🧅',
+    emoji: '🍎',
     articlesCount: 2,
     itemsList: ['Oignons Jaunes', 'Ail Violet'],
   },

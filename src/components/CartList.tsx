@@ -110,7 +110,7 @@ export default function CartList({ items, onUpdateQuantity, onRemoveItem }: Cart
             <button
               id={`btn-remove-${item.id}`}
               onClick={() => onRemoveItem(item.id)}
-              className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-400 hover:text-[#F43900] hover:bg-[#FFF5F0] transition-colors cursor-pointer"
+              className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-400 hover:text-[#FF5C00] hover:bg-[#FFF5F0] transition-colors cursor-pointer"
               title="Supprimer l'article"
             >
               <Trash2 className="w-4.5 h-4.5" />

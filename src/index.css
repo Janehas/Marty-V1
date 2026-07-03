@@ -28,4 +28,67 @@
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-3px) rotate(4deg); }
   }
+
+  @keyframes phone-scan-gesture {
+    0% {
+      transform: translate(-70px, 60px) scale(0.95);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    45%, 65% {
+      transform: translate(0px, 26px) scale(1.1);
+      opacity: 1;
+    }
+    85% {
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-70px, 60px) scale(0.95);
+      opacity: 0;
+    }
+  }
+
+  @keyframes laser-pulse {
+    0%, 42%, 68%, 100% {
+      opacity: 0;
+    }
+    48%, 62% {
+      opacity: 1;
+    }
+  }
+}
+
+.stroke-dash-draw-1 {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 10;
+  animation: draw-check 5s infinite ease-in-out;
+  animation-delay: 0.4s;
+}
+
+.stroke-dash-draw-2 {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 10;
+  animation: draw-check 5s infinite ease-in-out;
+  animation-delay: 1.6s;
+}
+
+.stroke-dash-draw-3 {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 10;
+  animation: draw-check 5s infinite ease-in-out;
+  animation-delay: 2.8s;
+}
+
+@keyframes draw-check {
+  0%, 10% {
+    stroke-dashoffset: 10;
+  }
+  30%, 82% {
+    stroke-dashoffset: 0;
+  }
+  92%, 100% {
+    stroke-dashoffset: 10;
+  }
 }
