@@ -1692,7 +1692,7 @@ export default function App() {
                           <span>{(totals.price * 0.8).toFixed(2)} €</span>
                         </div>
                         <div className="flex justify-between items-center text-[10px] font-bold text-emerald-600">
-                          <span>Remise Marty cumulée :</span>
+                          <span>Remise cumulée :</span>
                           <span>−{totals.savings.toFixed(2)} €</span>
                         </div>
                         <div className="flex justify-between items-center text-xs font-black text-gray-900 border-t border-gray-200 pt-1">
