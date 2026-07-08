@@ -910,43 +910,57 @@ export default function App() {
                   {noListMode ? (
                     /* FREE SCAN MODE VIEW */
                     <div className="w-full h-full flex gap-3">
-                      {/* Left: Beautiful Barcode Scanette Viewfinder */}
-                      <div 
-                        onClick={() => setShowScanPopup(true)}
-                        className="flex-1 h-[240px] relative rounded-xl border border-[#FF5C00] overflow-hidden bg-slate-950 shadow-sm select-none flex flex-col justify-between p-4 text-white cursor-pointer group hover:border-orange-500 transition-all"
-                        title="Cliquez pour simuler le scan de l'article"
-                      >
+                      {/* Left: Beautiful Barcode Scanette Viewfinder / Direct Scan Panel */}
+                      <div className="flex-1 h-[240px] relative rounded-xl border border-[#FF5C00] overflow-hidden bg-slate-950 shadow-sm select-none flex flex-col justify-between p-3.5 text-white">
                         {/* Background subtle neon barcode grid */}
                         <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#FF5C00_1px,transparent_1px),linear-gradient(to_bottom,#FF5C00_1px,transparent_1px)] [background-size:14px_14px]" />
                         
+                        {/* Glowing laser scan line visual effect */}
+                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,1)] animate-scan pointer-events-none" />
+
                         {/* Top banner */}
                         <div className="flex justify-between items-center relative z-10">
-                          <span className="text-[9px] bg-[#FF5C00]/90 text-white font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
-                            Lecteur Chariot Actif
-                          </span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="flex h-1.5 w-1.5 relative">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5C00] opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#FF5C00]"></span>
+                            </span>
+                            <span className="text-[9px] font-black text-[#FF5C00] uppercase tracking-widest">Scanner Marty</span>
+                          </div>
                           <span className="text-[10px] text-slate-400 font-bold flex items-center gap-1 font-mono">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
                             Scanner Prêt
                           </span>
                         </div>
 
-                        {/* Centered crosshair scanner box */}
-                        <div className="my-auto flex flex-col items-center justify-center relative z-10">
-                          <div className="w-36 h-16 border-2 border-dashed border-white/40 rounded-xl flex items-center justify-center relative overflow-hidden bg-slate-900/40">
-                            {/* Glowing scan laser */}
-                            <div className="absolute inset-x-0 h-0.5 bg-red-500 shadow-[0_0_10px_#ef4444] animate-scan" />
-                            {/* Barcode icon */}
-                            <Scan className="w-8 h-8 text-white/30" />
+                        {/* Centered product target to scan */}
+                        <div className="bg-slate-900/80 border border-slate-800/80 rounded-xl p-2.5 flex items-center gap-3 relative z-10">
+                          <span className="text-2xl leading-none bg-slate-950 p-2 rounded-lg border border-slate-800 shadow-xs shrink-0 select-none">
+                            {STORE_AISLES.find(a => a.name.toLowerCase().includes(selectedNoListProduct.category.toLowerCase()) || selectedNoListProduct.category.toLowerCase().includes(a.name.toLowerCase()) || selectedNoListProduct.category.toLowerCase().includes(a.id.toLowerCase()))?.emoji || '🛒'}
+                          </span>
+                          <div className="min-w-0 flex-1 text-left">
+                            <span className="text-[8px] text-[#FF5C00] font-bold uppercase tracking-wider block leading-none mb-0.5">
+                              ARTICLE SÉLECTIONNÉ
+                            </span>
+                            <h3 className="text-[11.5px] font-black text-white truncate leading-snug">
+                              {selectedNoListProduct.name}
+                            </h3>
+                            <p className="text-[9.5px] text-slate-400 mt-0.5 leading-none font-medium">
+                              {selectedNoListProduct.brand} • {selectedNoListProduct.weight}
+                            </p>
                           </div>
-                          <p className="text-[10px] text-slate-300 font-black mt-2 tracking-wide uppercase">
-                            Présentez un code-barres devant le lecteur
-                          </p>
                         </div>
 
-                        {/* Bottom hint overlay */}
-                        <div className="relative z-10 text-[9px] text-slate-400 text-center leading-none">
-                          Chariot Marty connecté • Visez le faisceau rouge pour scanner
-                        </div>
+                        {/* Action Button: Click to Scan directly */}
+                        <button
+                          onClick={() => {
+                            handleSimulatedScan();
+                          }}
+                          className="w-full h-10.5 bg-[#FF5C00] hover:bg-[#D43200] active:scale-[0.99] text-white text-[10.5px] font-black rounded-xl shadow-lg transition-all cursor-pointer uppercase tracking-wider flex items-center justify-center gap-1.5 border border-[#FF8F6B]/30 relative z-10"
+                        >
+                          <Scan className="w-4 h-4" />
+                          Biper l'article ({selectedNoListProduct.price.toFixed(2)} €)
+                        </button>
                       </div>
 
                       {/* Right: Store Catalog Selector scrollable */}
@@ -967,7 +981,12 @@ export default function App() {
                             return (
                               <div 
                                 key={item.id}
-                                className="bg-white hover:bg-orange-50/20 border border-gray-150 rounded-xl p-2 flex items-center justify-between transition-all"
+                                onClick={() => setSelectedNoListProduct(item)}
+                                className={`border rounded-xl p-2 flex items-center justify-between transition-all cursor-pointer ${
+                                  selectedNoListProduct.id === item.id
+                                    ? 'border-[#FF5C00] bg-orange-50/5'
+                                    : 'border-gray-150 bg-white hover:bg-orange-50/10'
+                                }`}
                               >
                                 <div className="min-w-0 flex-1 flex items-center gap-2">
                                   <span className="text-xl shrink-0">
@@ -984,14 +1003,18 @@ export default function App() {
                                 </div>
                                 
                                 <button
-                                  onClick={() => {
+                                  onClick={(e) => {
+                                    e.stopPropagation();
                                     setSelectedNoListProduct(item);
-                                    setShowScanPopup(true);
                                   }}
-                                  className="ml-2 bg-[#FF5C00] hover:bg-[#D43200] text-white text-[9.5px] font-black px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-all active:scale-95 cursor-pointer"
+                                  className={`ml-2 text-[9px] font-black px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-all active:scale-95 cursor-pointer ${
+                                    selectedNoListProduct.id === item.id
+                                      ? 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
+                                      : 'bg-[#FF5C00] hover:bg-[#D43200] text-white'
+                                  }`}
                                 >
                                   <Scan className="w-2.5 h-2.5" />
-                                  <span>Scan {inCartCount > 0 ? `(${inCartCount})` : ''}</span>
+                                  <span>{selectedNoListProduct.id === item.id ? 'Sélectionné' : 'Sélectionner'} {inCartCount > 0 ? `(${inCartCount})` : ''}</span>
                                 </button>
                               </div>
                             );
