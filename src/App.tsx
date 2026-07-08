@@ -982,7 +982,7 @@ export default function App() {
                               Prêt pour l'enregistrement de vos articles.
                             </h2>
                             <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">
-                              Cliquez sur ce panneau pour simuler le passage d'un article sous le faisceau du scanner.
+                              Scannez chaque article à l’aide du scanner situé à gauche de la tablette Marty, puis placez-le dans le caddie.
                             </p>
                           </div>
 
