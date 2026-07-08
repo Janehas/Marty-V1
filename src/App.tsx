@@ -910,57 +910,61 @@ export default function App() {
                   {noListMode ? (
                     /* FREE SCAN MODE VIEW */
                     <div className="w-full h-full flex gap-3">
-                      {/* Left: Beautiful Barcode Scanette Viewfinder / Direct Scan Panel */}
-                      <div className="flex-1 h-[240px] relative rounded-xl border border-[#FF5C00] overflow-hidden bg-slate-950 shadow-sm select-none flex flex-col justify-between p-3.5 text-white">
-                        {/* Background subtle neon barcode grid */}
-                        <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#FF5C00_1px,transparent_1px),linear-gradient(to_bottom,#FF5C00_1px,transparent_1px)] [background-size:14px_14px]" />
-                        
-                        {/* Glowing laser scan line visual effect */}
+                      {/* Left: Embedded Scan Card (Exactly matching the popup visual) */}
+                      <div 
+                        onClick={() => handleSimulatedScan()}
+                        className="flex-1 h-[240px] bg-white rounded-xl border border-gray-150 p-3 shadow-sm flex flex-col justify-between relative overflow-hidden cursor-pointer hover:border-orange-300 active:scale-[0.99] transition-all text-left"
+                        title="Cliquez sur le bloc pour simuler le scan de l'article"
+                      >
+                        {/* Laser scan line visual effect */}
                         <div className="absolute top-0 left-0 right-0 h-0.5 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,1)] animate-scan pointer-events-none" />
 
-                        {/* Top banner */}
-                        <div className="flex justify-between items-center relative z-10">
-                          <div className="flex items-center gap-1.5">
-                            <span className="flex h-1.5 w-1.5 relative">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5C00] opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#FF5C00]"></span>
-                            </span>
-                            <span className="text-[9px] font-black text-[#FF5C00] uppercase tracking-widest">Scanner Marty</span>
-                          </div>
-                          <span className="text-[10px] text-slate-400 font-bold flex items-center gap-1 font-mono">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                            Scanner Prêt
+                        {/* Title & Badge */}
+                        <div className="flex items-center gap-2 relative z-10">
+                          <span className="flex h-1.5 w-1.5 relative">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5C00] opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#FF5C00]"></span>
                           </span>
+                          <h3 className="text-[9px] font-black text-[#FF5C00] uppercase tracking-widest leading-none">Scanner Marty</h3>
                         </div>
 
-                        {/* Centered product target to scan */}
-                        <div className="bg-slate-900/80 border border-slate-800/80 rounded-xl p-2.5 flex items-center gap-3 relative z-10">
-                          <span className="text-2xl leading-none bg-slate-950 p-2 rounded-lg border border-slate-800 shadow-xs shrink-0 select-none">
+                        {/* Instruction text */}
+                        <div className="relative z-10">
+                          <h2 className="text-[11px] font-black text-gray-950 leading-snug">
+                            Scannez le produit avec le scan situé à gauche du dispositif.
+                          </h2>
+                          <p className="text-[9.5px] text-gray-500 mt-0.5 leading-tight">
+                            Présentez le code-barres de l'article devant le scanner physique de votre chariot.
+                          </p>
+                        </div>
+
+                        {/* Target item details */}
+                        <div className="bg-orange-50/50 border border-orange-100 rounded-xl p-2 flex items-center gap-2.5 relative z-10">
+                          <span className="text-xl leading-none bg-white p-1 rounded-lg border border-orange-200/40 shadow-xs shrink-0 select-none">
                             {STORE_AISLES.find(a => a.name.toLowerCase().includes(selectedNoListProduct.category.toLowerCase()) || selectedNoListProduct.category.toLowerCase().includes(a.name.toLowerCase()) || selectedNoListProduct.category.toLowerCase().includes(a.id.toLowerCase()))?.emoji || '🛒'}
                           </span>
-                          <div className="min-w-0 flex-1 text-left">
+                          <div className="min-w-0 flex-1">
                             <span className="text-[8px] text-[#FF5C00] font-bold uppercase tracking-wider block leading-none mb-0.5">
                               ARTICLE SÉLECTIONNÉ
                             </span>
-                            <h3 className="text-[11.5px] font-black text-white truncate leading-snug">
+                            <h3 className="text-[10px] font-black text-gray-900 truncate leading-tight">
                               {selectedNoListProduct.name}
                             </h3>
-                            <p className="text-[9.5px] text-slate-400 mt-0.5 leading-none font-medium">
+                            <p className="text-[8.5px] text-gray-500 mt-0.5 leading-none font-medium">
                               {selectedNoListProduct.brand} • {selectedNoListProduct.weight}
                             </p>
                           </div>
                         </div>
 
-                        {/* Action Button: Click to Scan directly */}
-                        <button
-                          onClick={() => {
-                            handleSimulatedScan();
-                          }}
-                          className="w-full h-10.5 bg-[#FF5C00] hover:bg-[#D43200] active:scale-[0.99] text-white text-[10.5px] font-black rounded-xl shadow-lg transition-all cursor-pointer uppercase tracking-wider flex items-center justify-center gap-1.5 border border-[#FF8F6B]/30 relative z-10"
-                        >
-                          <Scan className="w-4 h-4" />
-                          Biper l'article ({selectedNoListProduct.price.toFixed(2)} €)
-                        </button>
+                        {/* Virtual Scan Area simulation */}
+                        <div className="relative w-full h-[54px] bg-zinc-950 border border-zinc-800 rounded-xl overflow-hidden flex flex-col items-center justify-center select-none relative z-10">
+                          <div className="absolute top-0 bottom-0 left-0 right-0 pointer-events-none opacity-20 bg-[radial-gradient(#FF5C00_1px,transparent_1px)] [background-size:12px_12px]" />
+                          <div className="absolute inset-x-0 h-0.5 bg-red-500 shadow-[0_0_10px_#ef4444] animate-scan" />
+                          <Scan className="w-5 h-5 text-white/20" />
+                          <p className="text-[8px] text-slate-400 font-extrabold uppercase mt-0.5 tracking-wider animate-pulse">
+                            [ Bip ! Cliquez pour scanner ]
+                          </p>
+                        </div>
                       </div>
 
                       {/* Right: Store Catalog Selector scrollable */}
