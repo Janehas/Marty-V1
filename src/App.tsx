@@ -391,19 +391,21 @@ export default function App() {
       // Close the scan popup (if open)
       setShowScanPopup(false);
 
-      // Trigger Screen 6 Promo modal
-      setTimeout(() => {
-        setActivePromo({
-          productName: product.name,
-          offerTitle: `-10 % sur le deuxième de ${product.name}`,
-          description: `Profitez d'un tarif préférentiel exclusif Marty. Doublez le plaisir pour seulement ${(product.price * 0.9).toFixed(2)} € de plus !`,
-          originalPrice: product.price,
-          promoPrice: Number((product.price * 0.9).toFixed(2)),
-          brand: product.brand,
-          weight: product.weight,
-          category: product.category
-        });
-      }, 800);
+      // Trigger Screen 6 Promo modal only for Mozzarella di Bufala
+      if (product.name === 'Mozzarella di Bufala') {
+        setTimeout(() => {
+          setActivePromo({
+            productName: product.name,
+            offerTitle: `-10 % sur le deuxième de ${product.name}`,
+            description: `Profitez d'un tarif préférentiel exclusif Marty. Doublez le plaisir pour seulement ${(product.price * 0.9).toFixed(2)} € de plus !`,
+            originalPrice: product.price,
+            promoPrice: Number((product.price * 0.9).toFixed(2)),
+            brand: product.brand,
+            weight: product.weight,
+            category: product.category
+          });
+        }, 800);
+      }
       return;
     }
 
@@ -449,19 +451,21 @@ export default function App() {
       setAvatarStep(6); // reached checkout caisses
     }
 
-    // Trigger Screen 6 Promo modal
-    setTimeout(() => {
-      setActivePromo({
-        productName: product.product,
-        offerTitle: `-10 % sur le deuxième sachet de ${product.product}`,
-        description: `Profitez d'un tarif préférentiel exclusif Marty. Doublez le plaisir pour seulement ${(product.price * 0.9).toFixed(2)} € de plus !`,
-        originalPrice: product.price,
-        promoPrice: Number((product.price * 0.9).toFixed(2)),
-        brand: product.brand,
-        weight: product.weight,
-        category: product.name
-      });
-    }, 800);
+    // Trigger Screen 6 Promo modal only for Mozzarella di Bufala
+    if (product.product === 'Mozzarella di Bufala') {
+      setTimeout(() => {
+        setActivePromo({
+          productName: product.product,
+          offerTitle: `-10 % sur le deuxième sachet de ${product.product}`,
+          description: `Profitez d'un tarif préférentiel exclusif Marty. Doublez le plaisir pour seulement ${(product.price * 0.9).toFixed(2)} € de plus !`,
+          originalPrice: product.price,
+          promoPrice: Number((product.price * 0.9).toFixed(2)),
+          brand: product.brand,
+          weight: product.weight,
+          category: product.name
+        });
+      }, 800);
+    }
   };
 
   // Add promo item to cart (opens the scan simulator popup first)
