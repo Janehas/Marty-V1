@@ -955,16 +955,6 @@ export default function App() {
                             </p>
                           </div>
                         </div>
-
-                        {/* Virtual Scan Area simulation */}
-                        <div className="relative w-full h-[54px] bg-zinc-950 border border-zinc-800 rounded-xl overflow-hidden flex flex-col items-center justify-center select-none relative z-10">
-                          <div className="absolute top-0 bottom-0 left-0 right-0 pointer-events-none opacity-20 bg-[radial-gradient(#FF5C00_1px,transparent_1px)] [background-size:12px_12px]" />
-                          <div className="absolute inset-x-0 h-0.5 bg-red-500 shadow-[0_0_10px_#ef4444] animate-scan" />
-                          <Scan className="w-5 h-5 text-white/20" />
-                          <p className="text-[8px] text-slate-400 font-extrabold uppercase mt-0.5 tracking-wider animate-pulse">
-                            [ Bip ! Cliquez pour scanner ]
-                          </p>
-                        </div>
                       </div>
 
                       {/* Right: Store Catalog Selector scrollable */}
