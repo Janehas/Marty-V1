@@ -911,7 +911,11 @@ export default function App() {
                     /* FREE SCAN MODE VIEW */
                     <div className="w-full h-full flex gap-3">
                       {/* Left: Beautiful Barcode Scanette Viewfinder */}
-                      <div className="flex-1 h-[240px] relative rounded-xl border border-[#FF5C00] overflow-hidden bg-slate-950 shadow-sm select-none flex flex-col justify-between p-4 text-white">
+                      <div 
+                        onClick={() => setShowScanPopup(true)}
+                        className="flex-1 h-[240px] relative rounded-xl border border-[#FF5C00] overflow-hidden bg-slate-950 shadow-sm select-none flex flex-col justify-between p-4 text-white cursor-pointer group hover:border-orange-500 transition-all"
+                        title="Cliquez pour simuler le scan de l'article"
+                      >
                         {/* Background subtle neon barcode grid */}
                         <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#FF5C00_1px,transparent_1px),linear-gradient(to_bottom,#FF5C00_1px,transparent_1px)] [background-size:14px_14px]" />
                         
