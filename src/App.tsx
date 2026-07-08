@@ -1005,10 +1005,6 @@ export default function App() {
                           </div>
                         </>
                       )}
-
-                      <div className="text-center text-[10px] font-black text-[#FF5C00] uppercase tracking-wider animate-pulse relative z-10 mt-1">
-                        [ Cliquez ici pour simuler le scan ]
-                      </div>
                     </div>
                   ) : (
                     /* STANDARD GPS NAVIGATION VIEW */
