@@ -190,17 +190,6 @@ export default function App() {
       setShowScrollIndicator(scrollHeight > clientHeight + 5);
     }
   }, [shoppingList, appStep]);
-
-  // Auto-dismiss active promo popup after 10 seconds
-  useEffect(() => {
-    if (activePromo) {
-      const timer = setTimeout(() => {
-        setActivePromo(null);
-      }, 10000);
-      return () => clearTimeout(timer);
-    }
-  }, [activePromo]);
-
   // Group shoppingList items by category (aisleName)
   const groupedShoppingList = useMemo(() => {
     const groups: { [key: string]: ShoppingListItem[] } = {};
@@ -234,6 +223,16 @@ export default function App() {
   
   const tpeTimeoutRef = useRef<any>(null);
   const successTimeoutRef = useRef<any>(null);
+
+  // Auto-dismiss active promo popup after 10 seconds
+  useEffect(() => {
+    if (activePromo) {
+      const timer = setTimeout(() => {
+        setActivePromo(null);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [activePromo]);
 
   // Simulated scanner status
   const [isScanningLaserActive, setIsScanningLaserActive] = useState(true);
