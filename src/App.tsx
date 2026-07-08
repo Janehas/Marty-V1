@@ -295,8 +295,19 @@ export default function App() {
 
   // Proceed without list (direct scan mode)
   const handleNoListProceed = () => {
+    const items: ShoppingListItem[] = [
+      { id: 'item-1', name: 'Oignons Jaunes', aisleName: 'Fruits & Légumes', isChecked: false },
+      { id: 'item-2', name: 'Viande Hachée 15% mg', aisleName: 'Boucherie', isChecked: false },
+      { id: 'item-3', name: 'Mozzarella di Bufala', aisleName: 'Crèmerie', isChecked: false },
+      { id: 'item-4', name: 'Pâtes Lasagnes', aisleName: 'Pâtes / Féculents', isChecked: false },
+      { id: 'item-5', name: 'Sauce Tomate Basilic', aisleName: 'Épicerie salée', isChecked: false },
+      { id: 'item-6', name: 'Parmesan Râpé', aisleName: 'Crèmerie', isChecked: false },
+      { id: 'item-7', name: 'Huile d\'Olive', aisleName: 'Épicerie salée', isChecked: false },
+      { id: 'item-8', name: 'Eau de Source des Alpes', aisleName: 'Boissons', isChecked: false },
+      { id: 'item-9', name: 'Baguette Tradition', aisleName: 'Boulangerie', isChecked: false },
+    ];
+    setShoppingList(items);
     setNoListMode(true);
-    setShoppingList([]);
     setAppStep('experience');
     setExperienceTab('carte');
     triggerScannedAlert("Mode Scan Libre activé ! Scannez vos articles librement.");
