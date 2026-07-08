@@ -129,7 +129,7 @@ export default function App() {
   const [showCameraModal, setShowCameraModal] = useState(false);
   const [noListMode, setNoListMode] = useState(false);
   const [cameraAnalyzing, setCameraAnalyzing] = useState(false);
-  const [selectedNoListProduct, setSelectedNoListProduct] = useState(CATALOG_PRODUCTS[0]);
+  const [selectedNoListProduct, setSelectedNoListProduct] = useState<typeof CATALOG_PRODUCTS[0] | null>(null);
 
   // Current active step in tutorial instructions (Screen 2)
   const [currentTutorialStep, setCurrentTutorialStep] = useState(0);
@@ -295,18 +295,8 @@ export default function App() {
 
   // Proceed without list (direct scan mode)
   const handleNoListProceed = () => {
-    const items: ShoppingListItem[] = [
-      { id: 'item-1', name: 'Oignons Jaunes', aisleName: 'Fruits & Légumes', isChecked: false },
-      { id: 'item-2', name: 'Viande Hachée 15% mg', aisleName: 'Boucherie', isChecked: false },
-      { id: 'item-3', name: 'Mozzarella di Bufala', aisleName: 'Crèmerie', isChecked: false },
-      { id: 'item-4', name: 'Pâtes Lasagnes', aisleName: 'Pâtes / Féculents', isChecked: false },
-      { id: 'item-5', name: 'Sauce Tomate Basilic', aisleName: 'Épicerie salée', isChecked: false },
-      { id: 'item-6', name: 'Parmesan Râpé', aisleName: 'Crèmerie', isChecked: false },
-      { id: 'item-7', name: 'Huile d\'Olive', aisleName: 'Épicerie salée', isChecked: false },
-      { id: 'item-8', name: 'Eau de Source des Alpes', aisleName: 'Boissons', isChecked: false },
-      { id: 'item-9', name: 'Baguette Tradition', aisleName: 'Boulangerie', isChecked: false },
-    ];
-    setShoppingList(items);
+    setShoppingList([]);
+    setSelectedNoListProduct(null);
     setNoListMode(true);
     setAppStep('experience');
     setExperienceTab('carte');
@@ -359,8 +349,18 @@ export default function App() {
     }
 
     if (noListMode) {
-      const product = selectedNoListProduct;
+      // Pick the next catalog product dynamically based on the current length of the shopping list
+      const product = CATALOG_PRODUCTS[shoppingList.length % CATALOG_PRODUCTS.length];
       if (!product) return;
+
+      // Add to the shopping list (so it displays on the right panel) as checked
+      const newItem: ShoppingListItem = {
+        id: `item-${Date.now()}`,
+        name: product.name,
+        aisleName: product.category,
+        isChecked: true
+      };
+      setShoppingList(prev => [...prev, newItem]);
 
       // Check if product is already in cart
       const existingItem = cartItems.find(item => item.name === product.name);
@@ -385,7 +385,10 @@ export default function App() {
         triggerScannedAlert(`Bip ! ${product.name} ajouté au panier.`);
       }
 
-      // Close the scan popup
+      // Track the last scanned product for display on the left
+      setSelectedNoListProduct(product);
+
+      // Close the scan popup (if open)
       setShowScanPopup(false);
 
       // Trigger Screen 6 Promo modal
@@ -920,111 +923,87 @@ export default function App() {
                 <div className="flex-1 my-1.5 overflow-hidden">
                   {noListMode ? (
                     /* FREE SCAN MODE VIEW */
-                    <div className="w-full h-full flex gap-3">
-                      {/* Left: Embedded Scan Card (Exactly matching the popup visual) */}
-                      <div 
-                        onClick={() => handleSimulatedScan()}
-                        className="flex-1 h-[240px] bg-white rounded-xl border border-gray-150 p-3 shadow-sm flex flex-col justify-between relative overflow-hidden cursor-pointer hover:border-orange-300 active:scale-[0.99] transition-all text-left"
-                        title="Cliquez sur le bloc pour simuler le scan de l'article"
-                      >
-                        {/* Laser scan line visual effect */}
-                        <div className="absolute top-0 left-0 right-0 h-0.5 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,1)] animate-scan pointer-events-none" />
+                    <div 
+                      onClick={() => handleSimulatedScan()}
+                      className="w-full h-[240px] bg-white rounded-xl border border-gray-150 p-4 shadow-sm flex flex-col justify-between relative overflow-hidden cursor-pointer hover:border-orange-300 active:scale-[0.99] transition-all text-left"
+                      title="Cliquez sur le bloc pour simuler le scan de l'article"
+                    >
+                      {/* Laser scan line visual effect */}
+                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,1)] animate-scan pointer-events-none" />
 
-                        {/* Title & Badge */}
-                        <div className="flex items-center gap-2 relative z-10">
-                          <span className="flex h-1.5 w-1.5 relative">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5C00] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#FF5C00]"></span>
-                          </span>
-                          <h3 className="text-[9px] font-black text-[#FF5C00] uppercase tracking-widest leading-none">Scanner Marty</h3>
-                        </div>
-
-                        {/* Instruction text */}
-                        <div className="relative z-10">
-                          <h2 className="text-[11px] font-black text-gray-950 leading-snug">
-                            Scannez le produit avec le scan situé à gauche du dispositif.
-                          </h2>
-                          <p className="text-[9.5px] text-gray-500 mt-0.5 leading-tight">
-                            Présentez le code-barres de l'article devant le scanner physique de votre chariot.
-                          </p>
-                        </div>
-
-                        {/* Target item details */}
-                        <div className="bg-orange-50/50 border border-orange-100 rounded-xl p-2 flex items-center gap-2.5 relative z-10">
-                          <span className="text-xl leading-none bg-white p-1 rounded-lg border border-orange-200/40 shadow-xs shrink-0 select-none">
-                            {STORE_AISLES.find(a => a.name.toLowerCase().includes(selectedNoListProduct.category.toLowerCase()) || selectedNoListProduct.category.toLowerCase().includes(a.name.toLowerCase()) || selectedNoListProduct.category.toLowerCase().includes(a.id.toLowerCase()))?.emoji || '🛒'}
-                          </span>
-                          <div className="min-w-0 flex-1">
-                            <span className="text-[8px] text-[#FF5C00] font-bold uppercase tracking-wider block leading-none mb-0.5">
-                              ARTICLE SÉLECTIONNÉ
-                            </span>
-                            <h3 className="text-[10px] font-black text-gray-900 truncate leading-tight">
-                              {selectedNoListProduct.name}
-                            </h3>
-                            <p className="text-[8.5px] text-gray-500 mt-0.5 leading-none font-medium">
-                              {selectedNoListProduct.brand} • {selectedNoListProduct.weight}
-                            </p>
-                          </div>
-                        </div>
+                      {/* Title & Badge */}
+                      <div className="flex items-center gap-2 relative z-10">
+                        <span className="flex h-1.5 w-1.5 relative">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5C00] opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#FF5C00]"></span>
+                        </span>
+                        <h3 className="text-[9px] font-black text-[#FF5C00] uppercase tracking-widest leading-none">Scanner Marty</h3>
                       </div>
 
-                      {/* Right: Store Catalog Selector scrollable */}
-                      <div className="w-[280px] h-[240px] flex flex-col justify-between p-3 bg-slate-50 border border-gray-150 rounded-xl shrink-0 shadow-inner relative overflow-hidden">
-                        <div className="h-5 shrink-0 border-b border-gray-200 flex justify-between items-center pb-1">
-                          <span className="text-[10px] text-gray-800 font-extrabold uppercase tracking-wider">
-                            Catalogue du magasin
-                          </span>
-                          <span className="text-[9px] text-gray-400 font-bold">
-                            {CATALOG_PRODUCTS.length} articles
-                          </span>
-                        </div>
+                      {selectedNoListProduct ? (
+                        <>
+                          {/* Instruction text */}
+                          <div className="relative z-10">
+                            <h2 className="text-[12px] font-black text-gray-950 leading-snug">
+                              Scannez le produit avec le scan situé à gauche du dispositif.
+                            </h2>
+                            <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">
+                              Présentez le code-barres de l'article devant le scanner physique de votre chariot.
+                            </p>
+                          </div>
 
-                        {/* Scroll area listing store products */}
-                        <div className="flex-1 overflow-y-auto space-y-1.5 my-2 pr-1 scrollbar-thin">
-                          {CATALOG_PRODUCTS.map((item) => {
-                            const inCartCount = cartItems.find(c => c.name === item.name)?.quantity || 0;
-                            return (
-                              <div 
-                                key={item.id}
-                                onClick={() => setSelectedNoListProduct(item)}
-                                className={`border rounded-xl p-2 flex items-center justify-between transition-all cursor-pointer ${
-                                  selectedNoListProduct.id === item.id
-                                    ? 'border-[#FF5C00] bg-orange-50/5'
-                                    : 'border-gray-150 bg-white hover:bg-orange-50/10'
-                                }`}
-                              >
-                                <div className="min-w-0 flex-1 flex items-center gap-2">
-                                  <span className="text-xl shrink-0">
-                                    {STORE_AISLES.find(a => a.name.toLowerCase().includes(item.category.toLowerCase()) || item.category.toLowerCase().includes(a.name.toLowerCase()) || item.category.toLowerCase().includes(a.id.toLowerCase()))?.emoji || '📦'}
-                                  </span>
-                                  <div className="min-w-0 flex-1 text-left">
-                                    <h4 className="text-[10.5px] font-black text-gray-900 truncate leading-tight">
-                                      {item.name}
-                                    </h4>
-                                    <p className="text-[8.5px] text-gray-400 truncate leading-none mt-0.5">
-                                      {item.brand} • {item.price.toFixed(2)} €
-                                    </p>
-                                  </div>
-                                </div>
-                                
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setSelectedNoListProduct(item);
-                                  }}
-                                  className={`ml-2 text-[9px] font-black px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-all active:scale-95 cursor-pointer ${
-                                    selectedNoListProduct.id === item.id
-                                      ? 'bg-slate-800 hover:bg-slate-700 text-white border border-slate-700'
-                                      : 'bg-[#FF5C00] hover:bg-[#D43200] text-white'
-                                  }`}
-                                >
-                                  <Scan className="w-2.5 h-2.5" />
-                                  <span>{selectedNoListProduct.id === item.id ? 'Sélectionné' : 'Sélectionner'} {inCartCount > 0 ? `(${inCartCount})` : ''}</span>
-                                </button>
-                              </div>
-                            );
-                          })}
-                        </div>
+                          {/* Target item details */}
+                          <div className="bg-orange-50/50 border border-orange-100 rounded-xl p-3 flex items-center gap-3.5 relative z-10 max-w-xl mx-auto w-full shadow-xs">
+                            <span className="text-3xl leading-none bg-white p-2 rounded-lg border border-orange-200/40 shadow-xs shrink-0 select-none">
+                              {STORE_AISLES.find(a => a.name.toLowerCase().includes(selectedNoListProduct.category.toLowerCase()) || selectedNoListProduct.category.toLowerCase().includes(a.name.toLowerCase()) || selectedNoListProduct.category.toLowerCase().includes(a.id.toLowerCase()))?.emoji || '🛒'}
+                            </span>
+                            <div className="min-w-0 flex-1">
+                              <span className="text-[8px] text-[#FF5C00] font-bold uppercase tracking-wider block leading-none mb-0.5">
+                                DERNIER ARTICLE SCANNÉ
+                              </span>
+                              <h3 className="text-[12px] font-black text-gray-900 truncate leading-tight">
+                                {selectedNoListProduct.name}
+                              </h3>
+                              <p className="text-[10px] text-gray-500 mt-0.5 leading-none font-semibold">
+                                {selectedNoListProduct.brand} • {selectedNoListProduct.weight}
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          {/* Placeholder / Welcome Scan message */}
+                          <div className="relative z-10">
+                            <h2 className="text-[12px] font-black text-gray-900 leading-snug">
+                              Prêt pour l'enregistrement de vos articles.
+                            </h2>
+                            <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">
+                              Cliquez sur ce panneau pour simuler le passage d'un article sous le faisceau du scanner.
+                            </p>
+                          </div>
+
+                          {/* Empty/Ready Scanner display */}
+                          <div className="bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center justify-center gap-3.5 relative z-10 py-4 max-w-xl mx-auto w-full shadow-xs">
+                            <span className="text-3xl leading-none bg-white p-2 rounded-lg border border-gray-200/60 shadow-xs shrink-0 select-none">
+                              🛒
+                            </span>
+                            <div className="text-left">
+                              <span className="text-[8.5px] text-slate-400 font-bold uppercase tracking-wider block leading-none mb-0.5">
+                                STATUT LECTEUR
+                              </span>
+                              <h3 className="text-[12px] font-black text-slate-700 leading-tight">
+                                Chariot connecté
+                              </h3>
+                              <p className="text-[10px] text-slate-400 mt-0.5 leading-none font-semibold">
+                                En attente du premier article...
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      )}
+
+                      <div className="text-center text-[10px] font-black text-[#FF5C00] uppercase tracking-wider animate-pulse relative z-10 mt-1">
+                        [ Cliquez ici pour simuler le scan ]
                       </div>
                     </div>
                   ) : (
