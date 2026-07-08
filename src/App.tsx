@@ -282,6 +282,8 @@ export default function App() {
         { id: 'item-9', name: 'Baguette Tradition', aisleName: 'Boulangerie', isChecked: false },
       ];
       setShoppingList(items);
+      setCartItems([]);
+      setAvatarStep(0);
       setNoListMode(false);
       setIsGeneratingPath(true);
       setAppStep('experience');
@@ -296,6 +298,8 @@ export default function App() {
   // Proceed without list (direct scan mode)
   const handleNoListProceed = () => {
     setShoppingList([]);
+    setCartItems([]);
+    setAvatarStep(0);
     setSelectedNoListProduct(null);
     setNoListMode(true);
     setAppStep('experience');
@@ -320,6 +324,8 @@ export default function App() {
         { id: 'item-9', name: 'Baguette Tradition', aisleName: 'Boulangerie', isChecked: false },
       ];
       setShoppingList(items);
+      setCartItems([]);
+      setAvatarStep(0);
       setNoListMode(false);
       triggerScannedAlert("Liste importée avec succès ! (9 articles trouvés)");
     }, 1800);
