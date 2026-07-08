@@ -191,6 +191,16 @@ export default function App() {
     }
   }, [shoppingList, appStep]);
 
+  // Auto-dismiss active promo popup after 10 seconds
+  useEffect(() => {
+    if (activePromo) {
+      const timer = setTimeout(() => {
+        setActivePromo(null);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [activePromo]);
+
   // Group shoppingList items by category (aisleName)
   const groupedShoppingList = useMemo(() => {
     const groups: { [key: string]: ShoppingListItem[] } = {};
@@ -512,20 +522,6 @@ export default function App() {
   const handleTpePaymentCompleted = () => {
     setShowTpePopup(false);
     setCheckoutSuccess(true);
-
-    // Complete reset after showing success screen for 4.5 seconds
-    if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
-    successTimeoutRef.current = setTimeout(() => {
-      setAppStep('connect');
-      setCartItems([]);
-      setShoppingList([]);
-      setAvatarStep(0);
-      setIsNavigationActive(false);
-      setCheckoutOpen(false);
-      setCheckoutSuccess(false);
-      setEmailReceipt('');
-      setEmailChecked(false);
-    }, 4500);
   };
 
   return (
@@ -1595,6 +1591,23 @@ export default function App() {
                     <span className="text-[11px] font-mono font-bold text-[#FF5C00] tracking-wider block mt-4 animate-pulse">
                       ▲ VEUILLEZ LAISSER LE CHARIOT POUR LE CLIENT SUIVANT. À BIENTÔT !
                     </span>
+
+                    <button 
+                      onClick={() => {
+                        setAppStep('connect');
+                        setCartItems([]);
+                        setShoppingList([]);
+                        setAvatarStep(0);
+                        setIsNavigationActive(false);
+                        setCheckoutOpen(false);
+                        setCheckoutSuccess(false);
+                        setEmailReceipt('');
+                        setEmailChecked(false);
+                      }}
+                      className="mt-6 bg-[#FF5C00] hover:bg-[#E05200] text-white text-[10.5px] font-black px-6 py-2.5 rounded-xl transition-all shadow-md transform active:scale-95 cursor-pointer uppercase tracking-wider font-sans select-none"
+                    >
+                      Terminer la session
+                    </button>
                   </div>
                 ) : (
                   /* Active verification and checkout */
